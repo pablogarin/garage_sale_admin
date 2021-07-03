@@ -1,0 +1,2 @@
+openssl req -new -newkey rsa:4096 -nodes -keyout jwt.key -out jwt.csr
+openssl x509 -req -sha256 -days 365 -in jwt.csr -signkey jwt.key -out jwt.pem
