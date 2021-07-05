@@ -16,6 +16,7 @@ import UserContext from './context/UserContext';
 import Login from './components/Login';
 import APIClient from './utils/ApiClient';
 import ProductController from './controllers/ProductController';
+import CategoryController from './controllers/CategoryController';
 import FileAPI from './utils/FileAPI';
 
 const useStyles = makeStyles((theme) => ({
@@ -40,6 +41,7 @@ function App() {
   const apiClient = new APIClient(process.env.REACT_APP_API_URL, userToken);
   const fileApi = new FileAPI(process.env.REACT_APP_API_URL, userToken);
   const productController = new ProductController(apiClient);
+  const categoryController = new CategoryController(apiClient);
 
   return (
     <UserContext.Provider value={{ userToken, setUserToken }}>
@@ -60,7 +62,13 @@ function App() {
             <Form controller={productController} fileApi={fileApi} />
           </Route>
           <Route path="/admin/categories">
-            Categories
+            <DataTable controller={categoryController} />
+          </Route>
+          <Route path="/admin/category/create">
+            <Form controller={categoryController} fileApi={fileApi} create />
+          </Route>
+          <Route path="/admin/category/:id">
+            <Form controller={categoryController} fileApi={fileApi} />
           </Route>
           <Route path="/admin/orders">
             Orders

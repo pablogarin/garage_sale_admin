@@ -34,6 +34,10 @@ export default class ProductController {
           {
             value: 6,
             label: "Vehículos"
+          },
+          {
+            value: 7,
+            label: "Cocina"
           }
         ]
       },
@@ -84,7 +88,7 @@ export default class ProductController {
       images: data.images,
       description: data.description,
       available_date: data.availableDate,
-      category_id: data.category,
+      category_id: data.category.id ? data.category.id : data.category,
       stock: data.stock
     }
     const response = await this.client.updateData(`/product/${id}`, requestData);
@@ -106,7 +110,6 @@ export default class ProductController {
   }
 
   getValue(key, value) {
-    console.log(value);
     const field = this.fields[key];
     switch(field.type) {
       case 'string':
